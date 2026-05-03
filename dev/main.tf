@@ -51,44 +51,44 @@ module "iam" {
 module "ec2" {
   source = "../modules/ec2"
 
-  name                       = var.ec2_name
-  instance_type              = var.instance_type
-  private_subnet_ids         = module.vpc.private_subnets
-  sg_id                      = module.sg.app_sg_id
-  iam_instance_profile_name  = module.iam.instance_profile_name
-  target_group_arn           = module.alb.target_group_arn
-  min_size                   = var.min_size
-  max_size                   = var.max_size
-  desired_capacity           = var.desired_capacity
-  tags                       = var.tags
+  name                      = var.ec2_name
+  instance_type             = var.instance_type
+  private_subnet_ids        = module.vpc.private_subnets
+  sg_id                     = module.sg.app_sg_id
+  iam_instance_profile_name = module.iam.instance_profile_name
+  target_group_arn          = module.alb.target_group_arn
+  min_size                  = var.min_size
+  max_size                  = var.max_size
+  desired_capacity          = var.desired_capacity
+  tags                      = var.tags
 }
 
 # ---------------- RDS ----------------
 module "rds" {
   source = "../modules/rds"
 
-  identifier           = var.db_identifier
-  engine               = var.db_engine
-  engine_version       = var.db_engine_version
-  instance_class       = var.db_instance_class
-  allocated_storage    = var.db_allocated_storage
-  db_name              = var.db_name
-  username             = var.db_username
-  password             = var.db_password
-  private_subnet_ids   = module.vpc.private_subnets
-  sg_id                = module.sg.rds_sg_id
-  tags                 = var.tags
+  identifier         = var.db_identifier
+  engine             = var.db_engine
+  engine_version     = var.db_engine_version
+  instance_class     = var.db_instance_class
+  allocated_storage  = var.db_allocated_storage
+  db_name            = var.db_name
+  username           = var.db_username
+  password           = var.db_password
+  private_subnet_ids = module.vpc.private_subnets
+  sg_id              = module.sg.rds_sg_id
+  tags               = var.tags
 }
 
 # ---------------- S3 ----------------
 module "s3" {
   source = "../modules/s3"
 
-  bucket_name          = var.bucket_name
-  versioning_enabled   = var.bucket_versioning
-  public_access_block  = var.bucket_public_access_block
-  enable_encryption    = var.bucket_encryption
-  force_destroy        = var.bucket_force_destroy
+  bucket_name         = var.bucket_name
+  versioning_enabled  = var.bucket_versioning
+  public_access_block = var.bucket_public_access_block
+  enable_encryption   = var.bucket_encryption
+  force_destroy       = var.bucket_force_destroy
 
   bucket_policy = jsonencode({
     Version = "2012-10-17"
